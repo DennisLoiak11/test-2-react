@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Search = () => {
 
-    const [city, setCity] = useState('');
     const [query, setQuery] = useState('');
     const [lat, setLat] = useState('');
     const [lon, setLon] = useState('');
@@ -43,7 +42,7 @@ const Search = () => {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.Group className="mx-auto text-center w-50" >
-                <Form.Label>Search</Form.Label>
+                <Form.Label>SEARCH YOUR CITY</Form.Label>
                 <Form.Control
                     onChange={handleChange}
                     type="text"
