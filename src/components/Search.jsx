@@ -6,14 +6,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Search = () => {
 
     const [city, setCity] = useState('');
+    const [query, setQuery] = useState('');
     const [lat, setLat] = useState('');
     const [lon, setLon] = useState('');
 
 
-    const fetchGeoData = async () => {
+    const fetchGeoData = async (query) => {
         try {
             // const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=9d09b2a81bed1025def85ba12987cea1`);
-            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=9d09b2a81bed1025def85ba12987cea1`);
+            const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=9d09b2a81bed1025def85ba12987cea1`);
 
             if (response.ok) {
                 const data = await response.json();
@@ -27,23 +28,29 @@ const Search = () => {
 
 
     const handleChange = (event) => {
-        setCity(event.target.value);
-        fetchGeoData(city);
+        event.preventDefault();
+        setQuery(event.target.value);
+        console.log(event);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        fetchGeoData();      
     }
 
 
     return (
-        <>
-            <Form.Group className="mx-auto text-center w-50" controlId="formBasicEmail">
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mx-auto text-center w-50" >
                 <Form.Label>Search</Form.Label>
                 <Form.Control
                     onChange={handleChange}
                     type="text"
-                    value={city}
+                    value={query}
                     placeholder="Search City" />
             </Form.Group>
             {/* <MyWeather lat={lat} lon={lon}/> */}
-        </>
+        </Form>
     )
 }
 
