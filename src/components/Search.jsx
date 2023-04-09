@@ -13,12 +13,13 @@ const Search = () => {
 
     const fetchGeoData = async (query) => {
         try {
-            // const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=9d09b2a81bed1025def85ba12987cea1`);
             const response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${query}&appid=9d09b2a81bed1025def85ba12987cea1`);
 
             if (response.ok) {
                 const data = await response.json();
                 console.log(data);
+                setLat(data[0].lat);
+                setLon(data[0].lon);
             }
 
         } catch (error) {
@@ -35,7 +36,7 @@ const Search = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        fetchGeoData();      
+        fetchGeoData(query);
     }
 
 
@@ -49,7 +50,6 @@ const Search = () => {
                     value={query}
                     placeholder="Search City" />
             </Form.Group>
-            {/* <MyWeather lat={lat} lon={lon}/> */}
         </Form>
     )
 }
